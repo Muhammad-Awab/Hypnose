@@ -68,9 +68,9 @@ else
 
 @code {
 
-        [Parameter]
-        public string cat{ get; set; }
- 
+    [Parameter]
+    public string cat{ get; set; }
+
     private List<HypnosQuestion>? quiz { get; set; }
     private List<PatientResponses> patientResponses = new List<PatientResponses>();
     string? IsChecked;
@@ -86,10 +86,29 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        quiz = await QuizRepository.GetQuestions();
-        QuestionLength = quiz.Count();
-       
-        
+        //quiz = await QuizRepository.GetQuestions();
+        if (cat == "Tobacco")
+        {
+            quiz = await QuizRepository.GettobaccoQuestions();
+            QuestionLength = quiz.Count();
+        }
+        else if (cat == "Sleep_Apnea")
+        {
+            quiz = await QuizRepository.GetsleepQuestions();
+            QuestionLength = quiz.Count();
+        }
+        else if (cat == "Leg")
+        {
+            quiz = await QuizRepository.GetlegQuestions();
+            QuestionLength = quiz.Count();
+        }
+        else if (cat == "Sleepiness")
+        {
+            quiz = await QuizRepository.GetsleepnessQuestions();
+            QuestionLength = quiz.Count();
+        }
+
+
     }
 
     private string? SelectedChoice { get; set; }
