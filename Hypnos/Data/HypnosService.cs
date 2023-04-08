@@ -1,8 +1,11 @@
-﻿namespace Hypnos.Data
+﻿using Hypnos.Pages;
+using static System.Formats.Asn1.AsnWriter;
+
+namespace Hypnos.Data
 {
     public class HypnosService
     {
-        private static readonly List<HypnosQuestion>? Quesions;
+        private static List<HypnosQuestion>? Quesions;
 
         static HypnosService()
         {
@@ -172,14 +175,24 @@
                     Choices = new List<string> {"Yes", "No","Please Select"},
                     AnswerIndex = 1,
                     Score = 3
+                },
+                                            new HypnosQuestion
+                {
+                    Qno=19,
+                    Category="TC",Title="Tobacco Cessation",
+                    Question = "Have you gained weight in last 3-5 years?",
+                    Choices = new List<string> {"Yes", "No","Please Select"},
+                    AnswerIndex = 1,
+                    Score = 3
                 }
+            
             };
         }
 
 
         public Task<List<HypnosQuestion>?> GetQuestions()
         {
-
+            
             return Task.FromResult(Quesions);
         }
     }

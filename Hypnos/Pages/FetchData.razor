@@ -28,7 +28,7 @@ else
                                 <h5 class="text-black-50 mb-4">Question @(
                                 QuestionNo + 1
                                 )/@QuestionLength</h5>
-                                <p class="mb-3">@quiz[QuestionNo].Question</p>
+                                <p class="mb-3">@quiz[int.Parse(cat)].Question</p>
                                 <div class=" mb-4">
                                     <Questions SetChoice="UpdateScore" QuestionsChoice="quiz" QuestionNo="@(QuestionNo.ToString())" ></Questions>
                                 </div>
@@ -68,10 +68,11 @@ else
 
 @code {
 
-        [Parameter]
-        public string cat{ get; set; }
- 
+    [Parameter]
+    public string cat{ get; set; }
+
     private List<HypnosQuestion>? quiz { get; set; }
+
     private List<PatientResponses> patientResponses = new List<PatientResponses>();
     string? IsChecked;
     int QuestionNo = 0;
@@ -81,12 +82,12 @@ else
     bool NextIsDisabled = false;
     bool Done = false;
 
-
-
+  
 
     protected override async Task OnInitializedAsync()
     {
         quiz = await QuizRepository.GetQuestions();
+        
         QuestionLength = quiz.Count();
        
         
