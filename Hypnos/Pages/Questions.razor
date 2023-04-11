@@ -5,20 +5,37 @@
 
 }
 @foreach (var choice in QuestionsChoice[int.Parse(QuestionNo)].Choices)
-{  
-   
-    <input @onchange="@(() => UpdateChoice(choice))"
-       type="radio" 
-       
+{
+    @if (choice == "freetext")
+    {
+        <input 
+       type="text"
+       name="@QuestionNo"
+       id="@choiceIndex"
+       @bind-value="@name" />
+        <button class="btn btn-sm btn-primary" @onclick="@(() => UpdateChoice(name))" >Save
+        </button>
+        <br />
+        choiceIndex++;
+    }
+    else
+    {
+
+
+
+        <input @onchange="@(() => UpdateChoice(choice))"
+       type="radio"
        class="form-check-input"
        name="@QuestionNo"
        id="@choiceIndex"
        autocomplete="off"
        value="@choiceIndex"
-       checked="@(QuestionNo)"/>
-    <label class="form-check-label" for="@choiceIndex">@choice</label>
-    <br />
-    choiceIndex++;
+       checked="@(QuestionNo)" />
+        <label class="form-check-label" for="@choiceIndex">@choice</label>
+        <br />
+        choiceIndex++;
+    }
+
 }
 
 @code {
@@ -37,5 +54,7 @@
         StateHasChanged();
     }
 
-   
+    public string? name { get; set; }
+
+
 }

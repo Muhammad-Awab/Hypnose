@@ -28,9 +28,9 @@ else
                                 <h5 class="text-black-50 mb-4">Question @(
                                 QuestionNo + 1
                                 )/@QuestionLength</h5>
-                                <p class="mb-3">@quiz[QuestionNo].Question</p>
+                                <p class="mb-3">@filteredList[QuestionNo].Question</p>
                                 <div class=" mb-4">
-                                    <Questions SetChoice="UpdateScore" QuestionsChoice="quiz" QuestionNo="@(QuestionNo.ToString())" ></Questions>
+                                    <Questions SetChoice="UpdateScore" QuestionsChoice="filteredList" QuestionNo="@(QuestionNo.ToString())"></Questions>
                                 </div>
                                 <p>
                                     <span class="text-black-50">Your answer is</span> : <span class="text-success"> @SelectedChoice</span> </p>
@@ -70,7 +70,7 @@ else
 
     [Parameter]
     public string cat{ get; set; }
-
+    List<HypnosQuestion> filteredList{ get; set; }
     private List<HypnosQuestion>? quiz { get; set; }
     private List<PatientResponses> patientResponses = new List<PatientResponses>();
     string? IsChecked;
@@ -86,27 +86,11 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        //quiz = await QuizRepository.GetQuestions();
-        if (cat == "Tobacco")
-        {
-            quiz = await QuizRepository.GettobaccoQuestions();
-            QuestionLength = quiz.Count();
-        }
-        else if (cat == "Sleep_Apnea")
-        {
-            quiz = await QuizRepository.GetsleepQuestions();
-            QuestionLength = quiz.Count();
-        }
-        else if (cat == "Leg")
-        {
-            quiz = await QuizRepository.GetlegQuestions();
-            QuestionLength = quiz.Count();
-        }
-        else if (cat == "Sleepiness")
-        {
-            quiz = await QuizRepository.GetsleepnessQuestions();
-            QuestionLength = quiz.Count();
-        }
+        quiz = await QuizRepository.GetQuestions();
+        filteredList = quiz.Where(x => x.Title==cat).ToList();
+        
+        QuestionLength = filteredList.Count();
+        
 
 
     }
