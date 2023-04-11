@@ -1,5 +1,7 @@
 ﻿using Google.Protobuf.WellKnownTypes;
 using Hypnos.Pages;
+using static System.Formats.Asn1.AsnWriter;
+using System.Security.Cryptography;
 
 namespace Hypnos.Data
 {
@@ -162,7 +164,7 @@ namespace Hypnos.Data
                     Qno=17,
                     Category="sa",Title="Sleep_Apnea",
                     Question = "Have you gained weight in last 3-5 years",
-                    Choices = new List<string> {"Yes", "No","Please Select"},
+                    Choices = new List<string> {"freetext"},
                     AnswerIndex = 1,
                     Score = 3
                 },
@@ -171,7 +173,7 @@ namespace Hypnos.Data
                     Qno=18,
                     Category="sa",Title="Sleep_Apnea",
                     Question = "Is there anything else you would like to tell us about your sleep",
-                    Choices = new List<string> {"100", "<100","Please Select"},
+                    Choices = new List<string> {"freetext"},
                     AnswerIndex = 1,
                     Score = 3
                 },
@@ -291,16 +293,51 @@ namespace Hypnos.Data
                     AnswerIndex = 1,
                     Score = 3
                 },
-                         new HypnosQuestion
+                 new HypnosQuestion
                 {
                     Qno=30,
                     Category="SL",Title="Tobacco",
-                    Question = "Is your sleep environement generally dark, cool and quiet?",
+                    Question = "Do you use electronics in the bedroom?",
+                    Choices = new List<string> {"Yes", "No","Please Select"},
+                    AnswerIndex = 1,
+                    Score = 3
+                },
+
+    //Tobacco 
+
+                new HypnosQuestion
+                {
+                    Qno=30,
+                    Category="SL",Title="Tobacco",
+                    Question = "Do you currently smoke tobacco cigarettes",
+                    Choices = new List<string> {"Yes", "No","Please Select"},
+                    AnswerIndex = 1,
+                    Score = 3
+                },
+
+
+                new HypnosQuestion
+                {
+                    Qno=30,
+                    Category="SL",Title="Tobacco",
+                    Question = "How many cigarettes on an average day do you smoke",
+                    Choices = new List<string> {"0-5", "5-10","10-20","Greater than 20","Please Select"},
+                    AnswerIndex = 1,
+                    Score = 3
+                },
+
+
+                 new HypnosQuestion
+                {
+                    Qno=30,
+                    Category="SL",Title="Tobacco",
+                    Question = "What types of cigarettes do you typically smoke",
                     Choices = new List<string> {"freetext"},
                     AnswerIndex = 1,
                     Score = 3
                 },
-                         new HypnosQuestion
+
+                new HypnosQuestion
                 {
                     Qno=30,
                     Category="SL",Title="Tobacco",
@@ -309,6 +346,30 @@ namespace Hypnos.Data
                     AnswerIndex = 1,
                     Score = 3
                 },
+                       
+                new HypnosQuestion
+                {
+                    Qno=30,
+                    Category="SL",Title="Tobacco",
+                    Question = "Approximately how old were you when you started smoking",
+                    Choices = new List<string> {"freetext"},
+                    AnswerIndex = 1,
+                    Score = 3
+                },
+
+                new HypnosQuestion
+                {
+                     Qno=30,
+                     Category="SL",Title="Tobacco",
+                    Question = "Approximaly, how many years in total have you (did you) smoke",
+                    Choices = new List<string> {"freetext"},
+                    AnswerIndex = 1,
+                    Score = 3
+                },
+
+
+
+
 
             };
 
