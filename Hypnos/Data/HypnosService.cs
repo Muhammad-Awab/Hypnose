@@ -293,16 +293,16 @@ namespace Hypnos.Data
                 },
                          new HypnosQuestion
                 {
-                    Qno=30,
+                    Qno=31,
                     Category="SL",Title="Tobacco",
-                    Question = "Is your sleep environement generally dark, cool and quiet?",
+                    Question = "How many cigarettes on an average day do you smoke",
                     Choices = new List<string> {"freetext"},
                     AnswerIndex = 1,
                     Score = 3
                 },
                          new HypnosQuestion
                 {
-                    Qno=30,
+                    Qno=32,
                     Category="SL",Title="Tobacco",
                     Question = "What time of day do you typically smoke your first cigarette",
                     Choices = new List<string> {"freetext"},
