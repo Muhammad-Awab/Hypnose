@@ -25,23 +25,33 @@ else
                     <div class="card border-primary">
                         <div class="card-body shadow-sm p-3">
                             <section>
-                                <h5 class="text-black-50 mb-4">Question @(
+                                <h5 class="text-black-50 mb-4">
+                                    Question @(
                                 QuestionNo + 1
-                                )/@QuestionLength</h5>
+                                )/@QuestionLength
+                                </h5>
                                 <p class="mb-3">@filteredList[QuestionNo].Question</p>
                                 <div class=" mb-4">
                                     <Questions SetChoice="UpdateScore" QuestionsChoice="filteredList" QuestionNo="@(QuestionNo.ToString())"></Questions>
                                 </div>
                                 <p>
-                                    <span class="text-black-50">Your answer is</span> : <span class="text-success"> @SelectedChoice</span> </p>
+                                    <span class="text-black-50">Your answer is</span> : <span class="text-success"> @SelectedChoice</span>
+                                </p>
 
                                 <div>
                                     <button class="btn btn-primary me-2" @onclick="Back" disabled="@BackIsDisabled">Back</button>
-                                    <button @onclick="()=>UpdatePatentResponses(quiz[QuestionNo].Qno,quiz[QuestionNo].Question,SelectedChoice)" class="btn btn-primary" disabled="@NextIsDisabled">Next</button>
-                               @if(Done){
-                                    <button onclick="@SubmitHTML" class="btn btn-success">Download file</button>
-                                      
-                               }
+                                    <button @onclick="()=>UpdatePatentResponses(quiz[QuestionNo].Qno,quiz[QuestionNo].Question,SelectedChoice)" class="btn btn-primary btn-next" disabled="@NextIsDisabled">Next</button>
+                                    @if (Done)
+                                    {
+                                        <button onclick="@SubmitHTML" class="btn btn-success">Download file</button>
+
+                                        <style>
+                                            .btn-next {
+                                                display: none;
+                                            }
+                                        </style>
+
+                                    }
                                 </div>
                             </section>
                         </div>
@@ -51,7 +61,7 @@ else
         </div>
     </div>
 }
-  @*  <div class="col-md-12">
+@*  <div class="col-md-12">
         <table class="table table-bordered">
             @foreach (var res in patientResponses)
             {
@@ -64,13 +74,13 @@ else
             }
         </table>
     </div>*@
-    
+
 
 @code {
 
     [Parameter]
-    public string cat{ get; set; }
-    List<HypnosQuestion> filteredList{ get; set; }
+    public string cat { get; set; }
+    List<HypnosQuestion> filteredList { get; set; }
     private List<HypnosQuestion>? quiz { get; set; }
     private List<PatientResponses> patientResponses = new List<PatientResponses>();
     string? IsChecked;
@@ -87,10 +97,10 @@ else
     protected override async Task OnInitializedAsync()
     {
         quiz = await QuizRepository.GetQuestions();
-        filteredList = quiz.Where(x => x.Title==cat).ToList();
-        
+        filteredList = quiz.Where(x => x.Title == cat).ToList();
+
         QuestionLength = filteredList.Count();
-        
+
 
 
     }
@@ -165,13 +175,13 @@ else
 
     private async Task SubmitHTML()
     {
-   var render = new IronPdf.ChromePdfRenderer();
+        var render = new IronPdf.ChromePdfRenderer();
         var doc = render.RenderHtmlAsPdf(htmtable());
         var fileName = "iron.pdf";
         using var streamRef = new DotNetStreamReference(stream: doc.Stream);
         await JS.InvokeVoidAsync("SubmitHTML", fileName, streamRef);
     }
- 
+
     public string htmtable()
     {
         StringBuilder tableBuilder = new StringBuilder();
