@@ -8,7 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<HypnosService>();
-
+builder.WebHost.UseStaticWebAssets()
+builder.WebHost.UseUrls("http://0.0.0.0:5000 ");          
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
